@@ -44,3 +44,29 @@ as.factor (vec_logical) * vec_sample
 as.numeric (as.factor (vec_logical)) * vec_sample
 ```
 
+## Problem 2
+### Make a plot for "penguins" dataset
+```{r}
+# load "penguins" dataset
+data("penguins", package = "palmerpenguins")
+```
+
+The "penguins" dataset shows the variables of `r names(penguins)`. The species include `r levels (factor(penguins$species))` from `r levels (factor(penguins$island))` islands. The data comes from year `r levels(factor(penguins$year))`. The bill length ranges from `r min(penguins$bill_length_mm, na.rm = TRUE)`mm to `r max(penguins$bill_length_mm, na.rm = TRUE)`mm. The bill depth ranges from `r min(penguins$bill_depth_mm, na.rm = TRUE)`mm to `r max(penguins$bill_depth_mm, na.rm = TRUE)`mm. The flipper length ranges from `r min(penguins$flipper_length_mm, na.rm = TRUE)`mm to `r max(penguins$flipper_length_mm, na.rm = TRUE)`mm. And the body mass ranges from `r min(penguins$body_mass_g, na.rm = TRUE)`g to `r max(penguins$body_mass_g, na.rm = TRUE)`g.
+
+The dataset has `r nrow (penguins)` rows and `r ncol (penguins)` columns.
+
+The mean flipper length is `r round (mean (penguins$flipper_length_mm, na.rm = TRUE), 2)`mm (NA excluded).
+
+```{r warning=FALSE}
+# load tidyverse packages
+library(tidyverse)
+# make a scatterplot of flipper length (y) vs bill length (x)
+plot_penguins = tibble(
+  x = penguins$bill_length_mm, 
+  y = penguins$flipper_length_mm)
+# plot flipper length (y) vs bill length (x), colored by species
+ggplot(plot_penguins, aes(x = x, y = y, color = penguins$species)) + geom_point() + labs (color = "species", x = "bill length (mm)", y = "flipper length (mm)", title = "Flipper length vs Bill length" ) + theme(plot.title = element_text(hjust = 0.5))
+# save the plot
+ggsave("flipper_vs_bill.pdf")
+```
+
