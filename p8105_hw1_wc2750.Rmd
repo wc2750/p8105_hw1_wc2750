@@ -1,0 +1,46 @@
+---
+title: "p8105_hw1_wc2750"
+author: "Weixi Chen"
+date: "9/17/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+### Create a data frame
+```{r}
+# create variables
+vec_sample = rnorm (10) # a random sample of size 10 from a standard Normal distribution
+vec_logical = vec_sample > 0 # a logical vector indicating whether elements of the sample are greater then 0
+vec_char = c ("Hi", "my", "name", "is", "Weixi", "Chen", "nice", "to", "meet", "you") # a character vector of length 10
+vec_factor = factor(c("low", "low", "low", "medium", "medium", "medium", "medium", "high", "high", "high")) # a factor vector of length 10, with 3 different factor “levels”
+
+# create a data frame using tibble()
+library(tibble)
+data_frame = tibble(
+  vec_sample,
+  vec_logical,
+  vec_char,
+  vec_factor
+)
+data_frame
+```
+
+### Apply as.numeric function
+```{r eval=FALSE}
+# apply as.numeric
+as.numeric (vec_logical)
+as.numeric (vec_char)
+as.numeric (vec_factor)
+```
+
+### Convert variables
+```{r collapse=TRUE}
+as.numeric (vec_logical) * vec_sample
+as.factor (vec_logical) * vec_sample
+as.numeric (as.factor (vec_logical)) * vec_sample
+```
+
